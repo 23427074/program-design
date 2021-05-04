@@ -59,8 +59,8 @@ void mergeString(char **str, int head, int mid, int tail)
     char **B = malloc(sizeof(char*)*lenB);
     for(int r=0;r<MAX;r++)
     {
-    	*(A+r) = malloc(sizeof(char)*MAX);
-    	*(B+r) = malloc(sizeof(char)*MAX);
+    	*(A+r) = malloc(sizeof(char)*101);
+    	*(B+r) = malloc(sizeof(char)*101);
     }
     int i, j, k;
     for(i = 0; i < lenA; i++)

@@ -33,7 +33,7 @@ int main()
     char **str = malloc(sizeof(char*)*MAX);
     for(int y=0;y<MAX;y++)
     {
-    	*(str+y) = malloc(sizeof(char)*MAX);
+    	*(str+y) = malloc(sizeof(char)*101);
     }
     for(int i=0;i<MAX;i++)
     {	

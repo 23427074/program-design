@@ -2,103 +2,77 @@
 #include <stdlib.h>
 #include <string.h>
 #define MAX 1000000
-#ifndef HEADER_FILE
-#define HEADER_FILE
+#ifndef MERGE_H
+#define MERGE_H
 
-void mergeInt(int *number, int head, int mid, int tail)
+int result[MAX];
+
+void mergeInt(int number[], int head, int mid, int tail)
 {
-    int lenA = mid - head + 1;
-    int lenB = tail - mid;
-    int *A = malloc(sizeof(int)*lenA);
-    int *B = malloc(sizeof(int)*lenB);
     int i, j, k;
-    for(i = 0; i < lenA; i++)
+    k = 0;
+    i = head;
+    j = mid + 1;
+    while(i <= mid && j <= tail)
     {
-        A[i] = number[head + i];
-    }
-    for(j = 0; j < lenB; j++)
-    {
-        B[j] = number[mid + 1 + j];
-    }
-    i = 0;
-    j = 0;
-    k = head;
-    while(i < lenA && j < lenB)
-    {
-        if(A[i] < B[j])
+        if(number[i] < number[j])
         {
-            number[k] = A[i];
-            i++;
+            result[k++] = number[i++];    // same as b[k]=a[i]; k++; i++;
         }
         else
         {
-            number[k] = B[j];
-            j++;
+            result[k++] = number[j++];
         }
-        k++;
     }
-    while(i < lenA)
+  
+    while(i <= mid)
     {
-        number[k] = A[i];
-        i++;
-        k++;
+        result[k++] = number[i++];
     }
-    while(j < lenB)
+  
+    while(j <= tail)
     {
-        number[k] = B[j];
-        j++;
-        k++;
+        result[k++] = number[j++];
     }
+  
+    for(i=tail; i >= head; i--)
+    {
+        number[i] = result[--k];  // copying back the sorted list to a[]
+    } 
 }
 
+char resultstring[MAX][101];
 void mergeString(char **str, int head, int mid, int tail)
 {
-    int lenA = mid - head + 1;
-    int lenB = tail - mid;
-    char **A = malloc(sizeof(char*)*lenA);
-    char **B = malloc(sizeof(char*)*lenB);
-    for(int r=0;r<MAX;r++)
-    {
-    	*(A+r) = malloc(sizeof(char)*101);
-    	*(B+r) = malloc(sizeof(char)*101);
-    }
     int i, j, k;
-    for(i = 0; i < lenA; i++)
+    k = 0;
+    i = head;
+    j = mid + 1;
+    while(i <= mid && j <= tail)
     {
-        strcpy(A[i],str[head + i]);
-    }
-    for(j = 0; j < lenB; j++)
-    {
-        strcpy(B[j],str[mid + 1 + j]);
-    }
-    i = 0;
-    j = 0;
-    k = head;
-    while(i < lenA && j < lenB)
-    {
-        if(strcmp(A[i] , B[j])<0)
+        if(strcmp(str[i],str[j])<0)
         {
-            strcpy(str[k],  A[i]);
-            i++;
+            strcpy(resultstring[k++],str[i++]);
         }
         else
         {
-            strcpy(str[k],  B[j]);
-            j++;
+            strcpy(resultstring[k++],str[j++]);
         }
-        k++;
     }
-    while(i < lenA)
+  
+    while(i <= mid)
     {
-        strcpy(str[k],  A[i]);
-        i++;
-        k++;
+        strcpy(resultstring[k++],str[i++]);
     }
-    while(j < lenB)
+  
+    while(j <= tail)
     {
-        strcpy(str[k],  B[j]);
-        j++;
-        k++;
+        strcpy(resultstring[k++],str[j++]);
+    }
+  
+    for(i=tail; i >= mid; i--)
+    {
+        strcpy(str[i],resultstring[--k]); 
     }
 }
 

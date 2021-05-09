@@ -20,12 +20,12 @@ int main()
     {	
     	fscanf(ifile, "%d", &number[i]);
     }
-    //merge
     gettimeofday(&start,NULL);
     mergeSortInt(number, 0, MAX-1);
     gettimeofday(&end,NULL);
     t = (double)((end.tv_sec*1000000+end.tv_usec)-(start.tv_sec*1000000+start.tv_usec))/1000000.0;
     printf("Merge sort Int time : %lf(s)\n",t);
+    free(number);
     fclose(ifile);
     
     FILE *sfile = NULL;
@@ -37,17 +37,14 @@ int main()
     }
     for(int i=0;i<MAX;i++)
     {	
-    	fscanf(sfile, "%s", str[i]);
+    	fscanf(sfile, "%s", *(str+i));
     }
     gettimeofday(&start,NULL);
     mergeSortString(str, 0, MAX-1);
     gettimeofday(&end,NULL);
     t = (double)((end.tv_sec*1000000+end.tv_usec)-(start.tv_sec*1000000+start.tv_usec))/1000000.0;
     printf("Merge sort String time : %lf(s)\n",t);
-    for(int y=0;y<MAX;y++)
-    {
-    	printf("%s\n", str[y]);
-    }
+    free(str);
     fclose(sfile);
     return 0;
 }

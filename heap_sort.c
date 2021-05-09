@@ -42,10 +42,6 @@ int main()
     heapSortString(str, MAX);
     gettimeofday(&end,NULL);
     t = (double)((end.tv_sec*1000000+end.tv_usec)-(start.tv_sec*1000000+start.tv_usec))/1000000.0;
-    /*for(int y=0;y<MAX;y++)
-    {
-    	printf("%s\n", *(str+y));
-    }*/
     printf("Heap sort String time : %lf(s)\n",t);
     free(str);
     fclose(sfile);

@@ -16,13 +16,14 @@ int main()
     int *number = malloc(sizeof(int)*MAX);
     for(int i=0;i<MAX;i++)
     {	
-    	fscanf(ifile, "%d", &number[i]);
+    	fscanf(ifile, "%d", &*(number+i));
     }
     gettimeofday(&start,NULL);
-    quickSortInt(qnumber, 0, MAX-1);
+    quickSortInt(number, 0, MAX-1);
     gettimeofday(&end,NULL);
     t = (double)((end.tv_sec*1000000+end.tv_usec)-(start.tv_sec*1000000+start.tv_usec))/1000000.0;
     printf("Quick sort Int time : %lf(s)\n",t);
+    free(number);
     fclose(ifile);
     
     
@@ -31,18 +32,18 @@ int main()
     char **str = malloc(sizeof(char*)*MAX);
     for(int y=0;y<MAX;y++)
     {
-    	*(str+y) = malloc(sizeof(char)*MAX);
+    	*(str+y) = malloc(sizeof(char)*101);
     }
     for(int i=0;i<MAX;i++)
     {	
     	fscanf(sfile, "%s", str[i]);
     }
     gettimeofday(&start,NULL);
-    quickSortString(qstr, 0, MAX-1);
+    quickSortString(str, 0, MAX-1);
     gettimeofday(&end,NULL);
     t = (double)((end.tv_sec*1000000+end.tv_usec)-(start.tv_sec*1000000+start.tv_usec))/1000000.0;
     printf("Quick sort String time : %lf(s)\n",t);
-
+    free(str);
     fclose(sfile);
     return 0;
 }
